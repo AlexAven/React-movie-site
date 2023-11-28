@@ -1,53 +1,53 @@
-import React from "react";
+import React, { useState } from 'react';
 
-class Search extends React.Component {
-    state = {
-        search: '',
-        type: 'all',
-    }
+const Search = (props) => {
+    const {
+        searchMovies = Function.prototype,
+    } = props; 
 
-    handleKey = (event) => {
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('all');
+
+
+    const handleKey = (event) => {
         if (event.key === 'Enter') {
-            this.props.searchMovies(this.state.search, this.state.type);
+            searchMovies(search, type);
         }
     }
 
-    handleRadioChange = (event) => {
-        this.setState(() => ({type: event.target.dataset.type}), () => {
-            this.props.searchMovies(this.state.search, this.state.type);
-        });
-    }
+    const handleRadioChange = (event) => {
+        setType(event.target.dataset.type);
+        searchMovies(search, event.target.dataset.type);
+    };
 
-    render() {
-        return <div className="row">
-            <div className="input-field">
+        return <div className='row'>
+            <div className='input-field'>
                 <input
-                    placeholder="search"
-                    id="email_inline"
-                    type="search"
-                    className="validate"
-                    value={this.state.search}
-                    onChange={(event) => this.setState({search: event.target.value})}
-                    onKeyDown={this.handleKey}
+                    placeholder='search'
+                    id='email_inline'
+                    type='search'
+                    className='validate'
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                    onKeyDown={handleKey}
                 />
-                <button className="btn search-btn" onClick={() => this.props.searchMovies(this.state.search, this.state.type)}>Find</button>
+                <button className='btn search-btn' onClick={() => searchMovies(search, type)}>Find</button>
             </div>
             <div>
                 <label>
-                <input className="with-gap" type='radio' name='type' data-type='all' onChange={this.handleRadioChange} checked={this.state.type === 'all'} />
+                <input className='with-gap' type='radio' name='type' data-type='all' onChange={handleRadioChange} checked={type === 'all'} />
                     <span>All</span>
                 </label>
                 <label>
-                <input className="with-gap" type='radio' name='type' data-type='movie' onChange={this.handleRadioChange} checked={this.state.type === 'movie'} />
+                <input className='with-gap' type='radio' name='type' data-type='movie' onChange={handleRadioChange} checked={type === 'movie'} />
                     <span>Movies</span>
                 </label>
                 <label>
-                <input className="with-gap" type='radio' name='type' data-type='series' onChange={this.handleRadioChange} checked={this.state.type === 'series'} />
+                <input className='with-gap' type='radio' name='type' data-type='series' onChange={handleRadioChange} checked={type === 'series'} />
                     <span>Series</span>
                 </label>
             </div>
         </div>
-    }
 }
 
 export {Search}

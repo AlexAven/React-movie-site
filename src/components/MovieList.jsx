@@ -3,7 +3,7 @@ import {Movie} from './Movie'
 function MovieList(props) {
     const { movies = [] } = props;
 
-    return <div className="movies">
+    return <div className='movies'>
         {movies.length ? movies.map(movie => (
             <Movie key={movie.imdbID} {...movie} />
         )) : <h4>Nothing found :(</h4>
